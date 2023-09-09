@@ -8,6 +8,7 @@ import axios from "axios";
 import * as fs from 'fs';
 import * as crypto from "crypto";
 import * as nodePandoc from "node-pandoc";
+import {C3PO_SERVICE_TOKEN, C3PO_API_URL} from "../conf/secrets";
 
 mathjax.config({
     MathJax: {
@@ -16,7 +17,7 @@ mathjax.config({
 mathjax.start();
 
 const c3poHeaders = {
-    'auth_token': 'hij789', // make me come from ENV plz :-)
+    'auth_token': C3PO_SERVICE_TOKEN,
 };
 
 const parseMathPng = async (html: string) => {
@@ -31,7 +32,7 @@ const parseMathPng = async (html: string) => {
             const axiosConfig = {
                 method: "GET",
                 headers: c3poHeaders,
-                url: `https://c3po-api-test.cpm.org/api/v1/medias/${id}`,
+                url: `${C3PO_API_URL}/api/v1/medias/${id}`,
             }
             // @ts-ignore
             const {data} = await axios(axiosConfig)
